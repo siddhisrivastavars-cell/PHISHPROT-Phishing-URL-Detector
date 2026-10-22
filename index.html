@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PHISHPROT - Phishing Detector</title>
+    <style>
+        body { font-family: Arial; background: #f0f2f5; text-align: center; padding: 30px; }
+        .box { background: white; max-width: 500px; margin: auto; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        input { width: 90%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin: 15px 0; }
+        button { background: #0066ff; color: white; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; }
+        button:hover { background: #0052cc; }
+        .safe { background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-top: 20px; }
+        .danger { background: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px; margin-top: 20px; }
+        ul { text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>🛡️ PHISHPROT</h2>
+        <p>Suspicious URL Detector - BCA Cyber Security Project</p>
+        
+        <form method="POST">
+            <input type="text" name="url" placeholder="Enter URL e.g. https://google.com" required>
+            <br>
+            <button type="submit">Check URL</button>
+        </form>
+
+        {% if result %}
+            {% if result.is_phishing %}
+                <div class="danger">
+                    <h3>⚠️ WARNING! PHISHING WEBSITE!</h3>
+                    <p><b>URL:</b> {{ result.url }}</p>
+                    <p><b>Risk Score:</b> {{ result.c }}/7</p>
+                    <ul>
+                        {% for r in result.suspicions %}
+                        <li>{{ r }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+                <div class="safe">
+                    <h3>✅ SECURE URL!</h3>
+                    <p><b>URL:</b> {{ result.url }}</p>
+                    <p><b>Risk Score:</b> {{ result.c }}/7 - Safe</p>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
